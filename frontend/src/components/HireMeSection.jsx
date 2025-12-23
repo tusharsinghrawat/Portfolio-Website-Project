@@ -63,10 +63,11 @@ const services = [
 ];
 
 const benefits = [
-  "Clean, maintainable code",
-  "On-time delivery",
-  "Clear communication",
-  "Post-project support",
+  "Clean and readable code",
+  "Strong attention to detail",
+  "Clear and professional communication",
+  "Willingness to learn and improve",
+  "Basic project support and revisions"
 ];
 
 export default function HireMe() {
@@ -103,9 +104,7 @@ export default function HireMe() {
           </h2>
 
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            I'm currently open to new opportunities. Whether you need a
-            full-time developer, a freelance expert, or a technical
-            consultant, I'm here to help bring your ideas to life.
+           I'm a dedicated Web Developer with hands-on experience in HTML, CSS, JavaScript, and React.js. Actively seeking entry-level opportunities and internships where I can apply my skills, collaborate with teams, and grow by building impactful web applications.        
           </p>
         </motion.div>
 
@@ -150,16 +149,16 @@ export default function HireMe() {
           >
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-500/10 text-green-500 text-sm font-medium mb-6">
               <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-              Available Now
+              Open to Opportunities
             </div>
 
             <h3 className="text-2xl md:text-3xl font-bold mb-4">
-              Ready to Start Your Next Project?
+              Ready to Learn and Build Together?
             </h3>
 
             <p className="text-muted-foreground mb-6">
-              I bring expertise, dedication, and a passion for creating
-              exceptional digital experiences.
+               I focus on creating clean, responsive, and accessible web interfaces
+               while continuously learning and improving as a Web Developer.
             </p>
 
             <ul className="space-y-3 mb-8">
@@ -194,7 +193,7 @@ export default function HireMe() {
 
               <Button variant="outline">
                 <a
-                  href="/resume.pdf"
+                  href="/.resume.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                 >

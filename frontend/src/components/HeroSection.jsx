@@ -112,8 +112,8 @@ export default function HeroSection() {
             </a>
 
             <a
-              href="/resume.pdf"
-              download="Tushar Web Resume.pdf"
+              href="/.resume.pdf"
+              download="Tushar Resume.pdf"
               className="btn-outline flex items-center gap-2"
             >
               <Download size={18} />

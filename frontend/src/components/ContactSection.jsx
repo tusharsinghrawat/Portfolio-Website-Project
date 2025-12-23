@@ -77,12 +77,13 @@ export default function Contact() {
             </span>
 
             <h2 className="section-title">
-              Let's Work <span className="gradient-text">Together</span>
-            </h2>
+            Let's Build <span className="gradient-text">Something Great</span>
+          </h2>
 
             <p className="section-subtitle mx-auto">
-              Have a project in mind? I'd love to hear about it. Drop me a
-              message and let's create something amazing.
+              A motivated Web Developer focused on creating clean, responsive,
+              and engaging web experiences using modern frontend technologies.
+              Open to projects, internships, and collaborations.
             </p>
           </div>
 
