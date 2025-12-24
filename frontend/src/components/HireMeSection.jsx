@@ -193,7 +193,7 @@ export default function HireMe() {
 
               <Button variant="outline">
                 <a
-                  href="/.resume.pdf"
+                  href="/Portfolio-Website-Project/resume.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                 >

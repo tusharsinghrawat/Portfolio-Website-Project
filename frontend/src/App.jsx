@@ -7,8 +7,17 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
+import Auth from "./pages/Auth";
 
-const queryClient = new QueryClient();
+/* ---------------- QUERY CLIENT ---------------- */
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 1,            // ✅ avoid infinite retries
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 export default function App() {
   return (
@@ -19,8 +28,10 @@ export default function App() {
 
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/auth" element={<Auth />} /> {/* existing */}
           <Route path="*" element={<NotFound />} />
         </Routes>
+
       </TooltipProvider>
     </QueryClientProvider>
   );

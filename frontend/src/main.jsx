@@ -1,15 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { HashRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import "./index.css";
 
+/* ---------------- ROOT RENDER ---------------- */
 const rootElement = document.getElementById("root");
 
 ReactDOM.createRoot(rootElement).render(
   <React.StrictMode>
-    <HashRouter>
+    {/* ✅ GitHub Pages FIX (do not remove) */}
+    <BrowserRouter basename="/Portfolio-Website-Project">
       <App />
-    </HashRouter>
+    </BrowserRouter>
   </React.StrictMode>
 );

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Moon, Sun } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const navLinks = [
   { href: "#home", label: "Home" },
@@ -14,8 +15,13 @@ const navLinks = [
 ];
 
 export default function Navbar() {
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+
+  /* 🔐 AUTH STATE (cookie-based) */
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   const [isDark, setIsDark] = useState(() => {
     if (typeof window !== "undefined") {
       const saved = localStorage.getItem("theme");
@@ -25,6 +31,7 @@ export default function Navbar() {
     return true;
   });
 
+  /* 🔹 Scroll effect */
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
@@ -33,6 +40,7 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  /* 🔹 Theme */
   useEffect(() => {
     if (isDark) {
       document.documentElement.classList.add("dark");
@@ -41,6 +49,11 @@ export default function Navbar() {
     }
     localStorage.setItem("theme", isDark ? "dark" : "light");
   }, [isDark]);
+
+  /* 🔹 Auth check (cookie presence) */
+  useEffect(() => {
+    setIsLoggedIn(document.cookie.includes("token"));
+  }, []);
 
   const toggleTheme = () => setIsDark(!isDark);
 
@@ -51,6 +64,21 @@ export default function Navbar() {
     document
       .getElementById(targetId)
       ?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  /* 🚪 LOGOUT */
+  const handleLogout = async () => {
+    try {
+      await fetch("http://localhost:5000/api/auth/logout", {
+        method: "POST",
+        credentials: "include",
+      });
+    } catch (err) {
+      console.error("Logout failed");
+    } finally {
+      setIsLoggedIn(false);
+      navigate("/auth");
+    }
   };
 
   return (
@@ -72,7 +100,7 @@ export default function Navbar() {
           TSR
         </motion.a>
 
-        {/* Desktop Nav */}
+        {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
             <a
@@ -85,28 +113,21 @@ export default function Navbar() {
             </a>
           ))}
 
-          <motion.button
-            onClick={toggleTheme}
-            className="p-2 rounded-lg bg-secondary/50 hover:bg-secondary transition-colors"
-            whileTap={{ scale: 0.95 }}
-            aria-label="Toggle theme"
-          >
-            <AnimatePresence mode="wait" initial={false}>
-              <motion.div
-                key={isDark ? "dark" : "light"}
-                initial={{ y: -20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                exit={{ y: 20, opacity: 0 }}
-                transition={{ duration: 0.2 }}
-              >
-                {isDark ? <Sun size={20} /> : <Moon size={20} />}
-              </motion.div>
-            </AnimatePresence>
-          </motion.button>
-        </div>
+          {/* Auth Buttons */}
+          {!isLoggedIn ? (
+            <button
+              onClick={() => navigate("/auth")}
+              className="btn-primary"
+            >
+              Sign In / Sign Up
+            </button>
+          ) : (
+            <button onClick={handleLogout} className="btn-outline">
+              Logout
+            </button>
+          )}
 
-        {/* Mobile Buttons */}
-        <div className="md:hidden flex items-center gap-4">
+          {/* Theme Toggle */}
           <motion.button
             onClick={toggleTheme}
             className="p-2 rounded-lg bg-secondary/50 hover:bg-secondary transition-colors"
@@ -115,11 +136,19 @@ export default function Navbar() {
           >
             {isDark ? <Sun size={20} /> : <Moon size={20} />}
           </motion.button>
+        </div>
 
-          <button
-            className="p-2"
-            onClick={() => setIsOpen(!isOpen)}
+        {/* Mobile Buttons */}
+        <div className="md:hidden flex items-center gap-4">
+          <motion.button
+            onClick={toggleTheme}
+            className="p-2 rounded-lg bg-secondary/50"
+            aria-label="Toggle theme"
           >
+            {isDark ? <Sun size={20} /> : <Moon size={20} />}
+          </motion.button>
+
+          <button onClick={() => setIsOpen(!isOpen)}>
             {isOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
@@ -132,7 +161,7 @@ export default function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden glass-card mt-2 mx-4 rounded-xl overflow-hidden"
+            className="md:hidden glass-card mt-2 mx-4 rounded-xl"
           >
             <div className="flex flex-col p-4 gap-4">
               {navLinks.map((link) => (
@@ -145,6 +174,22 @@ export default function Navbar() {
                   {link.label}
                 </a>
               ))}
+
+              {!isLoggedIn ? (
+                <button
+                  onClick={() => navigate("/auth")}
+                  className="nav-link text-left"
+                >
+                  Sign In / Sign Up
+                </button>
+              ) : (
+                <button
+                  onClick={handleLogout}
+                  className="nav-link text-left"
+                >
+                  Logout
+                </button>
+              )}
             </div>
           </motion.div>
         )}
