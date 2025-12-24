@@ -99,11 +99,11 @@ router.post("/login", authLimiter, async (req, res) => {
       { expiresIn: "1d" }
     );
 
-    /* 🍪 HTTP-only cookie (LIVE SAFE) */
+    /* 🍪 HTTP-only cookie (LOCALHOST SAFE) */
     res.cookie("token", token, {
       httpOnly: true,
-      sameSite: "none",   // ✅ cross-site allow
-      secure: true,       // ✅ required on HTTPS
+      sameSite: "strict", // ✅ local
+      secure: false,      // ✅ local (http)
       maxAge: 24 * 60 * 60 * 1000,
     });
 
@@ -126,8 +126,8 @@ router.post("/login", authLimiter, async (req, res) => {
 router.post("/logout", (req, res) => {
   res.clearCookie("token", {
     httpOnly: true,
-    sameSite: "none",
-    secure: true,
+    sameSite: "strict",
+    secure: false,
   });
 
   return res.json({ message: "Logged out successfully ✅" });

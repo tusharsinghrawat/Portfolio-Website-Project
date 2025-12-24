@@ -15,40 +15,22 @@ const app = express();
 const contactRoutes = require("./routes/contactRoutes");
 const authRoutes = require("./routes/authRoutes");
 
-/* ---------------- CORS CONFIG ---------------- */
-const allowedOrigins = [
-  "http://localhost:5173",
-  "https://tusharsinghrawat.github.io",
-];
-
-const corsOptions = {
-  origin: function (origin, callback) {
-    // allow requests with no origin (Postman, curl)
-    if (!origin) return callback(null, true);
-
-    if (allowedOrigins.includes(origin)) {
-      return callback(null, true);
-    }
-
-    return callback(new Error("Not allowed by CORS"));
-  },
-  credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-};
-
 /* ---------------- MIDDLEWARE ---------------- */
-app.use(cors(corsOptions));
 
-// ✅ IMPORTANT: handle preflight requests
-app.options("*", cors(corsOptions));
+/* ✅ SIMPLE LOCALHOST CORS ONLY */
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
 
 app.use(express.json({ limit: "10kb" }));
 app.use(cookieParser());
 
 /* ---------------- API ROUTES ---------------- */
 app.get("/", (req, res) => {
-  res.send("Backend running 🚀");
+  res.send("Backend running 🚀 (LOCAL MODE)");
 });
 
 app.use("/api/contact", contactRoutes);
@@ -56,10 +38,8 @@ app.use("/api/auth", authRoutes);
 
 /* ---------------- DATABASE ---------------- */
 mongoose
-  .connect(process.env.MONGO_URI, {
-    autoIndex: true,
-  })
-  .then(() => console.log("✅ MongoDB connected"))
+  .connect(process.env.MONGO_URI)
+  .then(() => console.log("✅ MongoDB connected (LOCAL)"))
   .catch((err) => {
     console.error("❌ MongoDB error:", err.message);
     process.exit(1);
@@ -69,12 +49,5 @@ mongoose
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
-  console.log(`🚀 Server running on port ${PORT}`);
-});
-
-/* ---------------- GRACEFUL SHUTDOWN ---------------- */
-process.on("SIGINT", async () => {
-  await mongoose.connection.close();
-  console.log("🛑 MongoDB connection closed");
-  process.exit(0);
+  console.log(`🚀 Server running on http://localhost:${PORT}`);
 });

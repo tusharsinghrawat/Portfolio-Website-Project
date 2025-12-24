@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 
-/* ✅ LIVE BACKEND URL (Render) */
-const API_BASE = "https://portfolio-backend.onrender.com";
+/* ✅ LOCAL BACKEND URL */
+const API_BASE = "http://localhost:5000";
 
 export default function Auth() {
   const [mode, setMode] = useState("signup");
