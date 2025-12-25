@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Moon, Sun } from "lucide-react";
-import { useNavigate } from "react-router-dom";
 
 const navLinks = [
   { href: "#home", label: "Home" },
@@ -15,12 +14,8 @@ const navLinks = [
 ];
 
 export default function Navbar() {
-  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-
-  /* 🔐 AUTH STATE (cookie-based) */
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const [isDark, setIsDark] = useState(() => {
     if (typeof window !== "undefined") {
@@ -50,11 +45,6 @@ export default function Navbar() {
     localStorage.setItem("theme", isDark ? "dark" : "light");
   }, [isDark]);
 
-  /* 🔹 Auth check (cookie presence) */
-  useEffect(() => {
-    setIsLoggedIn(document.cookie.includes("token"));
-  }, []);
-
   const toggleTheme = () => setIsDark(!isDark);
 
   const handleNavClick = (e, href) => {
@@ -64,21 +54,6 @@ export default function Navbar() {
     document
       .getElementById(targetId)
       ?.scrollIntoView({ behavior: "smooth" });
-  };
-
-  /* 🚪 LOGOUT */
-  const handleLogout = async () => {
-    try {
-      await fetch("http://localhost:5000/api/auth/logout", {
-        method: "POST",
-        credentials: "include",
-      });
-    } catch (err) {
-      console.error("Logout failed");
-    } finally {
-      setIsLoggedIn(false);
-      navigate("/auth");
-    }
   };
 
   return (
@@ -112,20 +87,6 @@ export default function Navbar() {
               {link.label}
             </a>
           ))}
-
-          {/* Auth Buttons */}
-          {!isLoggedIn ? (
-            <button
-              onClick={() => navigate("/auth")}
-              className="btn-primary"
-            >
-              Sign In / Sign Up
-            </button>
-          ) : (
-            <button onClick={handleLogout} className="btn-outline">
-              Logout
-            </button>
-          )}
 
           {/* Theme Toggle */}
           <motion.button
@@ -174,22 +135,6 @@ export default function Navbar() {
                   {link.label}
                 </a>
               ))}
-
-              {!isLoggedIn ? (
-                <button
-                  onClick={() => navigate("/auth")}
-                  className="nav-link text-left"
-                >
-                  Sign In / Sign Up
-                </button>
-              ) : (
-                <button
-                  onClick={handleLogout}
-                  className="nav-link text-left"
-                >
-                  Logout
-                </button>
-              )}
             </div>
           </motion.div>
         )}

@@ -7,7 +7,6 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
-import Auth from "./pages/Auth";
 
 /* ---------------- QUERY CLIENT ---------------- */
 const queryClient = new QueryClient({
@@ -28,7 +27,6 @@ export default function App() {
 
         <Routes>
           <Route path="/" element={<Index />} />
-          <Route path="/auth" element={<Auth />} /> {/* existing */}
           <Route path="*" element={<NotFound />} />
         </Routes>
 
