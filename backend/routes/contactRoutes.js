@@ -2,7 +2,6 @@ const express = require("express");
 const nodemailer = require("nodemailer");
 const rateLimit = require("express-rate-limit");
 const Contact = require("../models/Contact");
-
 const router = express.Router();
 
 /* ---------------- SPAM PROTECTION ---------------- */
