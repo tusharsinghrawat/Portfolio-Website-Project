@@ -57,9 +57,11 @@ export default function HeroSection() {
             transition={{ duration: 0.6 }}
             className="mb-6"
           >
+          <div className="flex justify-center mt-14">
             <span className="inline-block px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-mono mb-6">
-              Welcome to my portfolio
+              Welcome to My Portfolio
             </span>
+          </div>
           </motion.div>
 
           {/* Name */}
