@@ -1,44 +1,50 @@
+
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { Briefcase, Calendar, MapPin } from "lucide-react";
 
 const experiences = [
-  {
-    title: "Senior Full Stack Developer",
-    company: "Tech Innovations Inc.",
-    location: "San Francisco, CA",
-    period: "2022 - Present",
-    description:
-      "Leading development of scalable web applications serving 1M+ users. Architecting microservices, mentoring junior developers, and implementing CI/CD pipelines.",
-    technologies: ["React", "Node.js", "AWS", "PostgreSQL", "Docker"],
-  },
-  {
-    title: "Full Stack Developer",
-    company: "Digital Solutions Co.",
-    location: "New York, NY",
-    period: "2020 - 2022",
-    description:
-      "Built and maintained multiple client-facing applications. Collaborated with cross-functional teams to deliver features on tight deadlines. Improved application performance by 40%.",
-    technologies: ["Vue.js", "Python", "MongoDB", "Redis"],
-  },
-  {
-    title: "Frontend Developer",
-    company: "Creative Agency",
-    location: "Los Angeles, CA",
-    period: "2018 - 2020",
-    description:
-      "Developed responsive web interfaces for various clients across industries. Implemented design systems and component libraries. Worked closely with designers to ensure pixel-perfect implementations.",
-    technologies: ["React", "TypeScript", "SASS", "Webpack"],
-  },
-  {
-    title: "Junior Developer",
-    company: "StartUp Hub",
-    location: "Austin, TX",
-    period: "2017 - 2018",
-    description:
-      "Started my professional journey building MVPs for early-stage startups. Gained hands-on experience with agile methodologies and rapid prototyping.",
-    technologies: ["JavaScript", "HTML/CSS", "jQuery", "PHP"],
-  },
+ {
+  title: "Full Stack Web Development Trainee (MERN)",
+  company: "Grras Training Institute (College-Based Training)",
+  location: "College Campus, India",
+  period: "Aug 2024 - Oct 2024",
+  description:
+    "Completed college-based training in Full Stack Web Development using the MERN stack. Learned frontend and backend fundamentals and worked on practice projects to understand full-stack application development, REST APIs, and database integration.",
+  technologies: ["HTML", "CSS", "JavaScript", "React.js", "Node.js", "Express.js", "MongoDB"],
+   
+},
+
+{
+  title: "Web Developer Intern",
+  company: "Elevate Labs",
+  location: "India (Remote)",
+  period: "Nov 2025 - Dec 2025",
+  description:
+    "Successfully completed a Web Developer Internship at Elevate Labs, working on real-world web development tasks and projects. Demonstrated strong problem-solving skills, professionalism, and dedication. Recognized as a Best Performer for consistent quality work and timely delivery.",
+  technologies: ["HTML", "CSS", "JavaScript", "React.js", "Web Development", "Real-World Projects"],
+},
+
+{
+  title: "AI Agent Architect Trainee (Project-Based Learning)",
+  company: "IBM SkillsBuild in collaboration with CSRBOX",
+  location: "India (Remote)",
+  period: "July 2025 - August 2025",
+  description:
+    "Successfully completed a 4-week IBM SkillsBuild Project Based Learning Program focused on Agentic AI. Gained hands-on experience in designing, building, and deploying AI agents, understanding agent architectures, workflows, and real-world AI use cases through guided projects.",
+  technologies: ["Agentic AI", "AI Agents", "Prompt Engineering", "Python", "AI Architecture", "Project-Based Learning"],
+},
+
+{
+  title: "Frontend Developer Trainee",
+  company: "Learning & Practice Phase",
+  location: "India (Remote)",
+  period: "2023 - 2025",
+  description:
+    "Learned and practiced frontend development fundamentals by building small applications and UI components. Focused on responsive design, component-based architecture, and improving coding standards.",
+  technologies: ["HTML", "CSS", "JavaScript", "React Basics", "UI Fundamentals"],
+},
+
 ];
 
 export default function Experience() {
@@ -147,3 +153,4 @@ export default function Experience() {
     </section>
   );
 }
+
