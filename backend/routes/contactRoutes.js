@@ -1,4 +1,4 @@
-const express = require("express");
+ const express = require("express");
 const nodemailer = require("nodemailer");
 const rateLimit = require("express-rate-limit");
 const Contact = require("../models/Contact");
@@ -56,19 +56,24 @@ router.post("/", contactLimiter, async (req, res) => {
     /* -------- SAVE TO DATABASE -------- */
     await Contact.create({ name, email, message });
 
-    /* -------- SEND EMAIL -------- */
-    await transporter.sendMail({
-      from: `"Portfolio Contact" <${process.env.EMAIL_USER}>`,
-      to: process.env.EMAIL_USER,
-      subject: "📩 New Contact Message",
-      html: `
-        <h3>New Message Received</h3>
-        <p><b>Name:</b> ${name}</p>
-        <p><b>Email:</b> ${email}</p>
-        <p><b>Message:</b></p>
-        <p>${message}</p>
-      `,
-    });
+    /* -------- SEND EMAIL (NON-BLOCKING) -------- */
+    try {
+      await transporter.sendMail({
+        from: `"Portfolio Contact" <${process.env.EMAIL_USER}>`,
+        to: process.env.EMAIL_USER,
+        subject: "📩 New Contact Message",
+        html: `
+          <h3>New Message Received</h3>
+          <p><b>Name:</b> ${name}</p>
+          <p><b>Email:</b> ${email}</p>
+          <p><b>Message:</b></p>
+          <p>${message}</p>
+        `,
+      });
+    } catch (emailErr) {
+      console.error("Email Error:", emailErr.message);
+      // ⚠️ Email fail ho sakta hai, lekin data safe hai
+    }
 
     res.status(201).json({
       message: "Message sent successfully ✅",
